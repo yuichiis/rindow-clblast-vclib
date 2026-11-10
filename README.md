@@ -1,4 +1,4 @@
-CLBlast Import Wrapper　Library for Visual Studio
+CLBlast Import Wrapper Library for Visual Studio
 ================================================
 Rindow CLBlast VClib allows for the importing and calling of VC-format DLLs, regardless of the CLBlast build number.
 
