@@ -33,15 +33,12 @@ jobs:
       - name: Checkout codes
         uses: "actions/checkout@v4"
 
-      - name: Setup
+      - name: Build
         run: |
           Invoke-WebRequest -Uri https://github.com/CNugteren/CLBlast/releases/download/${{ env.clblast }}/CLBlast-${{ env.clblast }}-windows-x64.7z -OutFile ${{ env.workspace }}CLBlast.7z
           7z x ${{ env.workspace }}CLBlast.7z -o${{ env.workspace }}
           Invoke-WebRequest -Uri https://github.com/KhronosGroup/OpenCL-SDK/releases/download/${{ env.opencl_sdk }}/OpenCL-SDK-${{ env.opencl_sdk }}-Win-x64.zip -OutFile ${{ env.workspace }}OpenCL-SDK.zip
           Expand-Archive -Path ${{ env.workspace }}OpenCL-SDK.zip -DestinationPath ${{ env.workspace }}
-
-      - name: Build
-        run: |
           cmake -S . -B build && cmake --build build --config Release -DCLBLAST_DIR=${{ env.workspace }}/CLBlast-${{ env.clblast }}-windows-x64 -DOPENCL_DIR=${{ env.workspace }}/OpenCL-SDK-${{ env.opencl_sdk }}-Win-x64
 
       - name: Packaging
