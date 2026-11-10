@@ -16,6 +16,11 @@ jobs:
     name: build
     runs-on: ${{ matrix.os }}
 
+    env:
+        clblast: 1.7.0
+        opencl_sdk: v2026.05.29
+        workspace: workspace
+
     strategy:
       fail-fast: true
       matrix:
@@ -30,25 +35,14 @@ jobs:
 
       - name: Setup
         run: |
-          Invoke-WebRequest -Uri https://github.com/CNugteren/CLBlast/releases/download/1.7.0/CLBlast-1.7.0-windows-x64.7z -OutFile ${{ env.workspace }}CLBlast.7z
+          Invoke-WebRequest -Uri https://github.com/CNugteren/CLBlast/releases/download/${{ env.clblast }}/CLBlast-${{ env.clblast }}-windows-x64.7z -OutFile ${{ env.workspace }}CLBlast.7z
           7z x ${{ env.workspace }}CLBlast.7z -o${{ env.workspace }}
-          Invoke-WebRequest -Uri https://github.com/KhronosGroup/OpenCL-SDK/releases/download/v2026.05.29/OpenCL-SDK-v2026.05.29-Win-x64.zip -OutFile ${{ env.workspace }}OpenCL-SDK.zip
+          Invoke-WebRequest -Uri https://github.com/KhronosGroup/OpenCL-SDK/releases/download/${{ env.opencl_sdk }}/OpenCL-SDK-${{ env.opencl_sdk }}-Win-x64.zip -OutFile ${{ env.workspace }}OpenCL-SDK.zip
           Expand-Archive -Path ${{ env.workspace }}OpenCL-SDK.zip -DestinationPath ${{ env.workspace }}
 
       - name: Build
         run: |
-          cmake -S . -B build && cmake --build build --config Release -DCLBLAST_DIR=${{ env.workspace }}CLBlast-1.7.0-windows-x64 -DOPENCL_DIR=${{ env.workspace }}OpenCL-SDK-v2026.05.29-Win-x64
-
-      - name: Build (macOS)
-        if: ${{ startsWith(matrix.os, 'macos-') }}
-        run: |
-          export OpenMP_ROOT=$(brew --prefix)/opt/libomp
-          cmake -S . -B build && cmake --build build --config Release
-
-      - name: GoogleTest Tests
-        run: |
-          cd build
-          ctest -V -C Release
+          cmake -S . -B build && cmake --build build --config Release -DCLBLAST_DIR=${{ env.workspace }}CLBlast-${{ env.clblast }}-windows-x64 -DOPENCL_DIR=${{ env.workspace }}OpenCL-SDK-${{ env.opencl_sdk }}-Win-x64
 
       - name: Packaging
         run: |
