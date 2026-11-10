@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.14)
 #include (CMakePrintSystemInformation)
 #set(CMAKE_CONFIGURATION_TYPES Debug Release)
 
-project(rindow-clblast-vclib VERSION 1.0.0 LANGUAGES CXX C)
-#set(PROJECT_VERSION_MAJOR 1)
-#set(PROJECT_VERSION_MINOR 0)
+project(rindow-clblast-vclib VERSION 0.1.0 LANGUAGES CXX C)
+#set(PROJECT_VERSION_MAJOR 0)
+#set(PROJECT_VERSION_MINOR 1)
 #set(PROJECT_VERSION_PATCH 0)
 
 # CLBlast and OpenCL header directories
@@ -19,7 +19,7 @@ if(NOT CLBLAST_INCLUDE_DIR)
     endif()
 endif()
 
-set(OPENCL_DIR "C:/OpenCL/OpenCL-SDK-v2023.12.14-Win-x64" CACHE PATH "Path to OpenCL SDK root directory")
+set(OPENCL_DIR "C:/OpenCL/OpenCL-SDK-v2026.05.29-Win-x64" CACHE PATH "Path to OpenCL SDK root directory")
 set(OPENCL_INCLUDE_DIR "" CACHE PATH "Path to OpenCL include directory")
 
 if(NOT OPENCL_INCLUDE_DIR)
@@ -71,4 +71,3 @@ message(STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
 message(STATUS "CPACK_PACKAGING_INSTALL_PREFIX: ${CPACK_PACKAGING_INSTALL_PREFIX}")
 message(STATUS "CPACK_COMPONENTS_ALL: ${CPACK_COMPONENTS_ALL}")
 message(STATUS "CPACK_PACKAGE_VERSION: ${CPACK_PACKAGE_VERSION}")
-
