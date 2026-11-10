@@ -42,7 +42,7 @@ jobs:
 
       - name: Build
         run: |
-          cmake -S . -B build && cmake --build build --config Release -DCLBLAST_DIR=${{ env.workspace }}CLBlast-${{ env.clblast }}-windows-x64 -DOPENCL_DIR=${{ env.workspace }}OpenCL-SDK-${{ env.opencl_sdk }}-Win-x64
+          cmake -S . -B build && cmake --build build --config Release -DCLBLAST_DIR=${{ env.workspace }}/CLBlast-${{ env.clblast }}-windows-x64 -DOPENCL_DIR=${{ env.workspace }}/OpenCL-SDK-${{ env.opencl_sdk }}-Win-x64
 
       - name: Packaging
         run: |
